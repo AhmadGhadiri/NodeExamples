@@ -8,6 +8,8 @@ function grab(flag) {
 var greeting = grab('--greeting');
 var user = grab('--user');
 
+console.log(user);
+
 if (!user || !greeting) {
   console.log('You blew it!');
 } else {

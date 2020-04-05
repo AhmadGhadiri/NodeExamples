@@ -11,7 +11,7 @@ function ask(i) {
   process.stdout.write(`  > `);
 }
 
-//First asynchronous function. This function is called on process when there is data in stdin
+//First asynchronous function. This function is called on process when the user types some data in the stdin and press enter
 process.stdin.on('data', function(data){
   process.stdout.write('\n' + data.toString().trim() + '\n');
   answers.push(data.toString().trim());
