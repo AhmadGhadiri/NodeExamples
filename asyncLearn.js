@@ -10,12 +10,12 @@ function withCallback(wine, cb) {
 withCallback("test", function (err, result) {
     console.log("err", err);
     console.log("result", result);
-}); 
-    
+});
+
 withCallback(6, function (err, result) {
     console.log("err", err);
     console.log("result", result);
-}); 
+});
 
 function callingCallback (cb) {
   withCallback(6, cb);
@@ -39,3 +39,45 @@ async.waterfall([
     }
     console.log("no err", result);
 });
+
+//
+function print1(cb) {
+  console.log("1");
+  cb();
+}
+function print2(cb) {
+  console.log("2");
+  cb();
+}
+function print3withArg(name, cb) {
+  console.log(name);
+  cb(null, name);
+}
+function print4(cb) {
+  console.log("args", arguments);
+  console.log("4");
+  cb();
+}
+
+async.series([
+  print1,
+  print2,
+  //because there is an argument, I need to use this way
+  function (cb) {
+    print3withArg('Ahmad',cb);
+  },
+  function (cb) {
+    console.log("argAfter3", arguments);
+    cb();
+  },
+  function (cb) {
+    print3withArg('Ahmad',cb);
+  },
+  print4
+  ], function (err) {
+    if(err) {
+      console.log("there was an err");
+    }
+    console.log("no error");
+    return;
+ });
